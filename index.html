@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LinkKit Studio — Link-to-Marketing Kit Studio</title>
+  <meta name="description" content="Paste a website URL and get a complete marketing kit: live screenshot, executive summary, WhatsApp broadcast and social media captions — generated in seconds." />
+  <!-- Inline data-URI favicon so no external network request is needed -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%236366f1'/%3E%3Cstop offset='1' stop-color='%238b5cf6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='24' fill='url(%23g)'/%3E%3Ctext x='50' y='69' font-size='44' text-anchor='middle' fill='white' font-family='Arial,sans-serif' font-weight='800'%3ELK%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Accessibility: skip straight to main content for keyboard users -->
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- Decorative background orbs (pure CSS, pointer-events disabled) -->
+  <div class="bg-fx" aria-hidden="true">
+    <div class="bg-fx__orb bg-fx__orb--one"></div>
+    <div class="bg-fx__orb bg-fx__orb--two"></div>
+  </div>
+
+  <!-- ============ HEADER ============ -->
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="brand" href="#main" aria-label="LinkKit Studio — home">
+        <span class="brand__mark" aria-hidden="true">
+          <!-- Lucide "link-2" -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 17H7A5 5 0 0 1 7 7h2"/><path d="M15 7h2a5 5 0 1 1 0 10h-2"/><line x1="8" x2="16" y1="12" y2="12"/></svg>
+        </span>
+        <span class="brand__text">
+          <span class="brand__name">LinkKit <span class="text-gradient">Studio</span></span>
+          <span class="brand__sub">Link-to-Marketing Kit Studio</span>
+        </span>
+      </a>
+      <span class="badge badge--glow"><span class="badge__dot"></span>AI-Powered</span>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ============ HERO / INPUT ============ -->
+    <section class="hero container" aria-labelledby="heroTitle">
+      <p class="eyebrow">
+        <!-- Lucide "sparkles" -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
+        AI Marketing Kit Generator
+      </p>
+
+      <h1 class="hero__title" id="heroTitle">Paste a link.<br />Get a complete <span class="text-gradient">marketing kit</span>.</h1>
+      <p class="hero__sub">
+        Drop in any public website URL and instantly get a live screenshot, an executive summary,
+        a WhatsApp broadcast message and social captions — ready to copy, download and ship.
+      </p>
+
+      <!-- URL input + primary CTA. `novalidate` lets our own validation logic run instead of native browser bubbles -->
+      <form id="generateForm" class="generate" novalidate aria-busy="false">
+        <div class="flex items-center gap-3 p-2 pl-4 rounded-2xl bg-slate-800/80 border border-slate-700/80 shadow-2xl max-w-3xl mx-auto" id="urlRow">
+          <span class="generate__prefix" aria-hidden="true">
+            <!-- Lucide "globe" -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+          </span>
+          <input
+            id="urlInput"
+            class="generate__input flex-1 min-w-0 w-full bg-transparent text-white border-none outline-none ring-0 shadow-none"
+            type="url"
+            inputmode="url"
+            autocomplete="url"
+            spellcheck="false"
+            placeholder="Paste a website URL — e.g. https://example.com"
+            aria-label="Website URL"
+            aria-describedby="urlError"
+          />
+          <button id="generateBtn" class="btn btn-primary btn--lg generate__btn shrink-0 rounded-xl" type="submit">
+            <span class="btn__label">Generate Marketing Kit</span>
+            <span class="btn__spinner" hidden aria-hidden="true"></span>
+            <!-- Lucide "sparkles" -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn__icon"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
+          </button>
+        </div>
+
+        <p id="urlError" class="generate__error" role="alert" hidden>
+          <!-- Lucide "alert-triangle" -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+          <span id="urlErrorText">Please enter a valid URL starting with http:// or https://</span>
+        </p>
+
+        <div class="flex flex-wrap items-center justify-center gap-2 mt-3 text-xs text-slate-400">
+          <span class="generate__hints-label">Try:</span>
+          <button type="button" class="chip chip--link" data-sample="https://aurorafitness.ng">aurorafitness.ng</button>
+          <button type="button" class="chip chip--link" data-sample="https://naija-eats.com">naija-eats.com</button>
+          <button type="button" class="chip chip--link" data-sample="https://lagostechsummit.org">lagostechsummit.org</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- ============ HOW IT WORKS ============ -->
+    <section class="container" aria-label="How it works">
+      <h2 class="section-title">From link to launch, in three steps</h2>
+      <div class="steps">
+        <article class="step-card">
+          <span class="step-card__num" aria-hidden="true">01</span>
+          <span class="icon-tile tile-indigo">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 17H7A5 5 0 0 1 7 7h2"/><path d="M15 7h2a5 5 0 1 1 0 10h-2"/><line x1="8" x2="16" y1="12" y2="12"/></svg>
+          </span>
+          <h3 class="step-card__title">Paste your link</h3>
+          <p class="step-card__desc">Any public URL. The studio validates it and captures a live screenshot of the page.</p>
+        </article>
+        <article class="step-card">
+          <span class="step-card__num" aria-hidden="true">02</span>
+          <span class="icon-tile tile-violet">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </span>
+          <h3 class="step-card__title">AI writes the kit</h3>
+          <p class="step-card__desc">The engine analyzes the content and drafts the tagline, summary, broadcast and captions.</p>
+        </article>
+        <article class="step-card">
+          <span class="step-card__num" aria-hidden="true">03</span>
+          <span class="icon-tile tile-emerald">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></svg>
+          </span>
+          <h3 class="step-card__title">Copy &amp; ship</h3>
+          <p class="step-card__desc">Download the screenshot, copy the WhatsApp message and post the captions — one click each.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ LOADING / PROGRESS ============ -->
+    <section id="loadingPanel" class="container" hidden aria-live="polite" aria-busy="true">
+      <div class="loading__card card">
+        <div class="spinner" aria-hidden="true"></div>
+        <p class="loading__title">Generating your kit…</p>
+        <p class="loading__url" id="loadingUrl"></p>
+        <!-- Phase checklist injected by JS (config.PHASES) -->
+        <ol class="phase-list" id="phaseList"></ol>
+        <div class="progress" aria-hidden="true">
+          <div class="progress__bar" id="progressBar"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ OUTPUT DASHBOARD ============ -->
+    <section id="dashboard" class="dashboard container" hidden>
+      <div class="dashboard__head mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div class="dashboard__head-text flex flex-col gap-2">
+          <p class="dashboard__kicker">Your results</p>
+          <h2 class="dashboard__title">Marketing kit <span class="text-gradient">ready</span></h2>
+          <p class="dashboard__url inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-indigo-500/10 text-indigo-400 text-sm font-mono" id="resultUrl"></p>
+        </div>
+        <button class="btn btn-ghost" data-action="reset" type="button">
+          <!-- Lucide "refresh-cw" -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
+          New URL
+        </button>
+      </div>
+      <!-- The four deliverable cards are rendered by js/ui.js into this grid -->
+      <div class="grid" id="kitGrid"></div>
+    </section>
+
+    <!-- ============ ERROR PANEL ============ -->
+    <section id="errorPanel" class="container" hidden aria-live="assertive">
+      <div class="error__card card">
+        <span class="error__icon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+        </span>
+        <h2 class="error__title">Couldn't reach the analysis engine</h2>
+        <p class="error__message" id="errorMessage"></p>
+        <p class="error__detail" id="errorDetail"></p>
+        <div class="error__actions">
+          <button class="btn btn-primary" data-action="retry" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
+            Try again
+          </button>
+          <button class="btn btn-ghost" data-action="demo" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
+            Preview with sample data
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer py-8 text-center text-xs text-slate-500">LinkKit Studio</footer>
+
+  <!-- Global toast (Copied! / errors) — lives at the bottom of the viewport -->
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <noscript>
+    <p style="text-align:center;padding:24px;color:#f1f5f9;font-family:sans-serif">
+      LinkKit Studio needs JavaScript enabled to generate your marketing kit.
+    </p>
+  </noscript>
+
+  <!-- ES6+ module entry point -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
