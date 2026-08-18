@@ -12,14 +12,14 @@ dotenv.config();
 
 const app = express();
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const rootDir = __dirname;
+const publicDir = path.join(__dirname, 'public');
 const preferredPort = Number(process.env.PORT || 5000);
 
 app.disable('x-powered-by');
 app.use(helmet());
 app.use(cors());
 app.use(express.json({ limit: '2mb' }));
-app.use(express.static(__dirname));
+app.use(express.static(publicDir));
 
 const analyzeLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
@@ -36,7 +36,7 @@ app.use((req, res, next) => {
 });
 
 app.get('/', (_req, res) => {
-  res.sendFile(path.join(rootDir, 'index.html'));
+  res.sendFile(path.join(publicDir, 'index.html'));
 });
 
 app.get('/health', (_req, res) => {
